@@ -29,6 +29,7 @@
 - (id)initWithTargetView:(UIView *)targetView
 {
     self = [super initWithFrame:CGRectMake(targetView.frame.origin.x - SIZE / 3, targetView.frame.origin.y - SIZE / 3, SIZE, SIZE)];
+    //self = [super initWithFrame:CGRectMake(-SIZE / 3, -SIZE / 3, SIZE, SIZE)];
     if (self) {
         // Initialization code
         
@@ -53,6 +54,7 @@
         self.userInteractionEnabled = YES;
         [self addGestureRecognizer:tapRecognizer];
         
+        //[targetView addSubview:self];
         [targetView.superview addSubview:self];
         
         self.targetView = targetView;

@@ -13,11 +13,12 @@ typedef enum {
     SAMessageViewModalTypeSlide,
 } SAMessageViewModalType;
 
-@interface SAMessageView : UIView
+@interface SAMessageView : UIView <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) UIView *wrapperView;
 @property (nonatomic) SAMessageViewModalType modalType;
+@property (nonatomic, retain) NSString *apiKey;
 
 @property (nonatomic) BOOL autoClose;
 @property (nonatomic) BOOL forcing;

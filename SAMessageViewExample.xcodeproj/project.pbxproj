@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B132AAD16133F440061337A /* SAMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B132AAC16133F440061337A /* SAMessageManager.m */; };
+		9B132AB01613498C0061337A /* BNCloseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B132AAF1613498C0061337A /* BNCloseLabel.m */; };
+		9B132AB716134D560061337A /* SAMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B132AB616134D560061337A /* SAMessage.m */; };
 		9BCDADC916129DCD0032A410 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADC816129DCD0032A410 /* UIKit.framework */; };
 		9BCDADCB16129DCD0032A410 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADCA16129DCD0032A410 /* Foundation.framework */; };
 		9BCDADCD16129DCD0032A410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADCC16129DCD0032A410 /* CoreGraphics.framework */; };
@@ -18,11 +21,16 @@
 		9BCDADDF16129DCD0032A410 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */; };
 		9BCDADE216129DCD0032A410 /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDADE116129DCD0032A410 /* SAViewController.m */; };
 		9BCDAE2C1612A9CE0032A410 /* SAMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */; };
-		9BCDAE391612ACD30032A410 /* BNCloseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDAE381612ACD30032A410 /* BNCloseLabel.m */; };
 		9BCDAE3B1612BADE0032A410 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDAE3A1612BADD0032A410 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B132AAB16133F440061337A /* SAMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMessageManager.h; sourceTree = "<group>"; };
+		9B132AAC16133F440061337A /* SAMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMessageManager.m; sourceTree = "<group>"; };
+		9B132AAE1613498C0061337A /* BNCloseLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCloseLabel.h; sourceTree = "<group>"; };
+		9B132AAF1613498C0061337A /* BNCloseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCloseLabel.m; sourceTree = "<group>"; };
+		9B132AB516134D560061337A /* SAMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMessage.h; sourceTree = "<group>"; };
+		9B132AB616134D560061337A /* SAMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMessage.m; sourceTree = "<group>"; };
 		9BCDADC416129DCD0032A410 /* SAMessageViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAMessageViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCDADC816129DCD0032A410 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BCDADCA16129DCD0032A410 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,8 +48,6 @@
 		9BCDADE116129DCD0032A410 /* SAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAViewController.m; sourceTree = "<group>"; };
 		9BCDAE2A1612A9CE0032A410 /* SAMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMessageView.h; sourceTree = "<group>"; };
 		9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMessageView.m; sourceTree = "<group>"; };
-		9BCDAE371612ACD30032A410 /* BNCloseLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCloseLabel.h; sourceTree = "<group>"; };
-		9BCDAE381612ACD30032A410 /* BNCloseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCloseLabel.m; sourceTree = "<group>"; };
 		9BCDAE3A1612BADD0032A410 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -60,6 +66,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B132AAA16133EF60061337A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B132AAB16133F440061337A /* SAMessageManager.h */,
+				9B132AAC16133F440061337A /* SAMessageManager.m */,
+				9B132AB516134D560061337A /* SAMessage.h */,
+				9B132AB616134D560061337A /* SAMessage.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		9BCDADB916129DCD0032A410 = {
 			isa = PBXGroup;
 			children = (
@@ -118,9 +135,10 @@
 		9BCDADEE16129DF70032A410 /* SAMessageView */ = {
 			isa = PBXGroup;
 			children = (
-				9BCDAE2D1612AAEC0032A410 /* Libraries */,
 				9BCDAE2A1612A9CE0032A410 /* SAMessageView.h */,
 				9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */,
+				9B132AAA16133EF60061337A /* Models */,
+				9BCDAE2D1612AAEC0032A410 /* Libraries */,
 			);
 			path = SAMessageView;
 			sourceTree = "<group>";
@@ -136,8 +154,8 @@
 		9BCDAE361612ACD30032A410 /* BNCloseLabel */ = {
 			isa = PBXGroup;
 			children = (
-				9BCDAE371612ACD30032A410 /* BNCloseLabel.h */,
-				9BCDAE381612ACD30032A410 /* BNCloseLabel.m */,
+				9B132AAE1613498C0061337A /* BNCloseLabel.h */,
+				9B132AAF1613498C0061337A /* BNCloseLabel.m */,
 			);
 			path = BNCloseLabel;
 			sourceTree = "<group>";
@@ -212,7 +230,9 @@
 				9BCDADD916129DCD0032A410 /* SAAppDelegate.m in Sources */,
 				9BCDADE216129DCD0032A410 /* SAViewController.m in Sources */,
 				9BCDAE2C1612A9CE0032A410 /* SAMessageView.m in Sources */,
-				9BCDAE391612ACD30032A410 /* BNCloseLabel.m in Sources */,
+				9B132AAD16133F440061337A /* SAMessageManager.m in Sources */,
+				9B132AB01613498C0061337A /* BNCloseLabel.m in Sources */,
+				9B132AB716134D560061337A /* SAMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

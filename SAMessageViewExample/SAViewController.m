@@ -55,6 +55,7 @@
 - (void)forceAction:(id)sender {
     SAMessageView *messageView = [[SAMessageView alloc] initWithParentView:self.navigationController.view];
     messageView.modalType = SAMessageViewModalTypeSlide;
+    messageView.apiKey = @"077c35ca5c682ea3875d943260d1c58c6040337d";
     [messageView show];
     [messageView release];
 }
