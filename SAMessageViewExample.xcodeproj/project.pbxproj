@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9BCDADC916129DCD0032A410 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADC816129DCD0032A410 /* UIKit.framework */; };
+		9BCDADCB16129DCD0032A410 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADCA16129DCD0032A410 /* Foundation.framework */; };
+		9BCDADCD16129DCD0032A410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADCC16129DCD0032A410 /* CoreGraphics.framework */; };
+		9BCDADD316129DCD0032A410 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADD116129DCD0032A410 /* InfoPlist.strings */; };
+		9BCDADD516129DCD0032A410 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDADD416129DCD0032A410 /* main.m */; };
+		9BCDADD916129DCD0032A410 /* SAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDADD816129DCD0032A410 /* SAAppDelegate.m */; };
+		9BCDADDB16129DCD0032A410 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADDA16129DCD0032A410 /* Default.png */; };
+		9BCDADDD16129DCD0032A410 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADDC16129DCD0032A410 /* Default@2x.png */; };
+		9BCDADDF16129DCD0032A410 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */; };
+		9BCDADE216129DCD0032A410 /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDADE116129DCD0032A410 /* SAViewController.m */; };
+		9BCDADE516129DCD0032A410 /* SAViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADE316129DCD0032A410 /* SAViewController_iPhone.xib */; };
+		9BCDADE816129DCD0032A410 /* SAViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADE616129DCD0032A410 /* SAViewController_iPad.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9BCDADC416129DCD0032A410 /* SAMessageViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAMessageViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BCDADC816129DCD0032A410 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9BCDADCA16129DCD0032A410 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9BCDADCC16129DCD0032A410 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9BCDADD016129DCD0032A410 /* SAMessageViewExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SAMessageViewExample-Info.plist"; sourceTree = "<group>"; };
+		9BCDADD216129DCD0032A410 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9BCDADD416129DCD0032A410 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9BCDADD616129DCD0032A410 /* SAMessageViewExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SAMessageViewExample-Prefix.pch"; sourceTree = "<group>"; };
+		9BCDADD716129DCD0032A410 /* SAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAAppDelegate.h; sourceTree = "<group>"; };
+		9BCDADD816129DCD0032A410 /* SAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAAppDelegate.m; sourceTree = "<group>"; };
+		9BCDADDA16129DCD0032A410 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		9BCDADDC16129DCD0032A410 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9BCDADE016129DCD0032A410 /* SAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAViewController.h; sourceTree = "<group>"; };
+		9BCDADE116129DCD0032A410 /* SAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAViewController.m; sourceTree = "<group>"; };
+		9BCDADE416129DCD0032A410 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SAViewController_iPhone.xib; sourceTree = "<group>"; };
+		9BCDADE716129DCD0032A410 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SAViewController_iPad.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9BCDADC116129DCD0032A410 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BCDADC916129DCD0032A410 /* UIKit.framework in Frameworks */,
+				9BCDADCB16129DCD0032A410 /* Foundation.framework in Frameworks */,
+				9BCDADCD16129DCD0032A410 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9BCDADB916129DCD0032A410 = {
+			isa = PBXGroup;
+			children = (
+				9BCDADCE16129DCD0032A410 /* SAMessageViewExample */,
+				9BCDADC716129DCD0032A410 /* Frameworks */,
+				9BCDADC516129DCD0032A410 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9BCDADC516129DCD0032A410 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDADC416129DCD0032A410 /* SAMessageViewExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BCDADC716129DCD0032A410 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDADC816129DCD0032A410 /* UIKit.framework */,
+				9BCDADCA16129DCD0032A410 /* Foundation.framework */,
+				9BCDADCC16129DCD0032A410 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9BCDADCE16129DCD0032A410 /* SAMessageViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDADD716129DCD0032A410 /* SAAppDelegate.h */,
+				9BCDADD816129DCD0032A410 /* SAAppDelegate.m */,
+				9BCDADE016129DCD0032A410 /* SAViewController.h */,
+				9BCDADE116129DCD0032A410 /* SAViewController.m */,
+				9BCDADE316129DCD0032A410 /* SAViewController_iPhone.xib */,
+				9BCDADE616129DCD0032A410 /* SAViewController_iPad.xib */,
+				9BCDADCF16129DCD0032A410 /* Supporting Files */,
+			);
+			path = SAMessageViewExample;
+			sourceTree = "<group>";
+		};
+		9BCDADCF16129DCD0032A410 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDADD016129DCD0032A410 /* SAMessageViewExample-Info.plist */,
+				9BCDADD116129DCD0032A410 /* InfoPlist.strings */,
+				9BCDADD416129DCD0032A410 /* main.m */,
+				9BCDADD616129DCD0032A410 /* SAMessageViewExample-Prefix.pch */,
+				9BCDADDA16129DCD0032A410 /* Default.png */,
+				9BCDADDC16129DCD0032A410 /* Default@2x.png */,
+				9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9BCDADC316129DCD0032A410 /* SAMessageViewExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BCDADEB16129DCD0032A410 /* Build configuration list for PBXNativeTarget "SAMessageViewExample" */;
+			buildPhases = (
+				9BCDADC016129DCD0032A410 /* Sources */,
+				9BCDADC116129DCD0032A410 /* Frameworks */,
+				9BCDADC216129DCD0032A410 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SAMessageViewExample;
+			productName = SAMessageViewExample;
+			productReference = 9BCDADC416129DCD0032A410 /* SAMessageViewExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9BCDADBB16129DCD0032A410 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SA;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Tatsuya Tobioka";
+			};
+			buildConfigurationList = 9BCDADBE16129DCD0032A410 /* Build configuration list for PBXProject "SAMessageViewExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9BCDADB916129DCD0032A410;
+			productRefGroup = 9BCDADC516129DCD0032A410 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9BCDADC316129DCD0032A410 /* SAMessageViewExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9BCDADC216129DCD0032A410 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BCDADD316129DCD0032A410 /* InfoPlist.strings in Resources */,
+				9BCDADDB16129DCD0032A410 /* Default.png in Resources */,
+				9BCDADDD16129DCD0032A410 /* Default@2x.png in Resources */,
+				9BCDADDF16129DCD0032A410 /* Default-568h@2x.png in Resources */,
+				9BCDADE516129DCD0032A410 /* SAViewController_iPhone.xib in Resources */,
+				9BCDADE816129DCD0032A410 /* SAViewController_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9BCDADC016129DCD0032A410 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BCDADD516129DCD0032A410 /* main.m in Sources */,
+				9BCDADD916129DCD0032A410 /* SAAppDelegate.m in Sources */,
+				9BCDADE216129DCD0032A410 /* SAViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9BCDADD116129DCD0032A410 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BCDADD216129DCD0032A410 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9BCDADE316129DCD0032A410 /* SAViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BCDADE416129DCD0032A410 /* en */,
+			);
+			name = SAViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		9BCDADE616129DCD0032A410 /* SAViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BCDADE716129DCD0032A410 /* en */,
+			);
+			name = SAViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9BCDADE916129DCD0032A410 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9BCDADEA16129DCD0032A410 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9BCDADEC16129DCD0032A410 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SAMessageViewExample/SAMessageViewExample-Prefix.pch";
+				INFOPLIST_FILE = "SAMessageViewExample/SAMessageViewExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9BCDADED16129DCD0032A410 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SAMessageViewExample/SAMessageViewExample-Prefix.pch";
+				INFOPLIST_FILE = "SAMessageViewExample/SAMessageViewExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9BCDADBE16129DCD0032A410 /* Build configuration list for PBXProject "SAMessageViewExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BCDADE916129DCD0032A410 /* Debug */,
+				9BCDADEA16129DCD0032A410 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BCDADEB16129DCD0032A410 /* Build configuration list for PBXNativeTarget "SAMessageViewExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BCDADEC16129DCD0032A410 /* Debug */,
+				9BCDADED16129DCD0032A410 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9BCDADBB16129DCD0032A410 /* Project object */;
+}
