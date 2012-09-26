@@ -17,8 +17,9 @@
 		9BCDADDD16129DCD0032A410 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADDC16129DCD0032A410 /* Default@2x.png */; };
 		9BCDADDF16129DCD0032A410 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */; };
 		9BCDADE216129DCD0032A410 /* SAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDADE116129DCD0032A410 /* SAViewController.m */; };
-		9BCDADE516129DCD0032A410 /* SAViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADE316129DCD0032A410 /* SAViewController_iPhone.xib */; };
-		9BCDADE816129DCD0032A410 /* SAViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BCDADE616129DCD0032A410 /* SAViewController_iPad.xib */; };
+		9BCDAE2C1612A9CE0032A410 /* SAMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */; };
+		9BCDAE391612ACD30032A410 /* BNCloseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDAE381612ACD30032A410 /* BNCloseLabel.m */; };
+		9BCDAE3B1612BADE0032A410 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDAE3A1612BADD0032A410 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +38,11 @@
 		9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9BCDADE016129DCD0032A410 /* SAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAViewController.h; sourceTree = "<group>"; };
 		9BCDADE116129DCD0032A410 /* SAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAViewController.m; sourceTree = "<group>"; };
-		9BCDADE416129DCD0032A410 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SAViewController_iPhone.xib; sourceTree = "<group>"; };
-		9BCDADE716129DCD0032A410 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SAViewController_iPad.xib; sourceTree = "<group>"; };
+		9BCDAE2A1612A9CE0032A410 /* SAMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMessageView.h; sourceTree = "<group>"; };
+		9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMessageView.m; sourceTree = "<group>"; };
+		9BCDAE371612ACD30032A410 /* BNCloseLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNCloseLabel.h; sourceTree = "<group>"; };
+		9BCDAE381612ACD30032A410 /* BNCloseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCloseLabel.m; sourceTree = "<group>"; };
+		9BCDAE3A1612BADD0032A410 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BCDAE3B1612BADE0032A410 /* QuartzCore.framework in Frameworks */,
 				9BCDADC916129DCD0032A410 /* UIKit.framework in Frameworks */,
 				9BCDADCB16129DCD0032A410 /* Foundation.framework in Frameworks */,
 				9BCDADCD16129DCD0032A410 /* CoreGraphics.framework in Frameworks */,
@@ -58,6 +63,7 @@
 		9BCDADB916129DCD0032A410 = {
 			isa = PBXGroup;
 			children = (
+				9BCDAE3A1612BADD0032A410 /* QuartzCore.framework */,
 				9BCDADCE16129DCD0032A410 /* SAMessageViewExample */,
 				9BCDADC716129DCD0032A410 /* Frameworks */,
 				9BCDADC516129DCD0032A410 /* Products */,
@@ -85,12 +91,11 @@
 		9BCDADCE16129DCD0032A410 /* SAMessageViewExample */ = {
 			isa = PBXGroup;
 			children = (
+				9BCDADEE16129DF70032A410 /* SAMessageView */,
 				9BCDADD716129DCD0032A410 /* SAAppDelegate.h */,
 				9BCDADD816129DCD0032A410 /* SAAppDelegate.m */,
 				9BCDADE016129DCD0032A410 /* SAViewController.h */,
 				9BCDADE116129DCD0032A410 /* SAViewController.m */,
-				9BCDADE316129DCD0032A410 /* SAViewController_iPhone.xib */,
-				9BCDADE616129DCD0032A410 /* SAViewController_iPad.xib */,
 				9BCDADCF16129DCD0032A410 /* Supporting Files */,
 			);
 			path = SAMessageViewExample;
@@ -108,6 +113,33 @@
 				9BCDADDE16129DCD0032A410 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9BCDADEE16129DF70032A410 /* SAMessageView */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDAE2D1612AAEC0032A410 /* Libraries */,
+				9BCDAE2A1612A9CE0032A410 /* SAMessageView.h */,
+				9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */,
+			);
+			path = SAMessageView;
+			sourceTree = "<group>";
+		};
+		9BCDAE2D1612AAEC0032A410 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDAE361612ACD30032A410 /* BNCloseLabel */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		9BCDAE361612ACD30032A410 /* BNCloseLabel */ = {
+			isa = PBXGroup;
+			children = (
+				9BCDAE371612ACD30032A410 /* BNCloseLabel.h */,
+				9BCDAE381612ACD30032A410 /* BNCloseLabel.m */,
+			);
+			path = BNCloseLabel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,8 +198,6 @@
 				9BCDADDB16129DCD0032A410 /* Default.png in Resources */,
 				9BCDADDD16129DCD0032A410 /* Default@2x.png in Resources */,
 				9BCDADDF16129DCD0032A410 /* Default-568h@2x.png in Resources */,
-				9BCDADE516129DCD0032A410 /* SAViewController_iPhone.xib in Resources */,
-				9BCDADE816129DCD0032A410 /* SAViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +211,8 @@
 				9BCDADD516129DCD0032A410 /* main.m in Sources */,
 				9BCDADD916129DCD0032A410 /* SAAppDelegate.m in Sources */,
 				9BCDADE216129DCD0032A410 /* SAViewController.m in Sources */,
+				9BCDAE2C1612A9CE0032A410 /* SAMessageView.m in Sources */,
+				9BCDAE391612ACD30032A410 /* BNCloseLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,22 +225,6 @@
 				9BCDADD216129DCD0032A410 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		9BCDADE316129DCD0032A410 /* SAViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9BCDADE416129DCD0032A410 /* en */,
-			);
-			name = SAViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		9BCDADE616129DCD0032A410 /* SAViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9BCDADE716129DCD0032A410 /* en */,
-			);
-			name = SAViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -269,7 +285,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SAMessageViewExample/SAMessageViewExample-Prefix.pch";
 				INFOPLIST_FILE = "SAMessageViewExample/SAMessageViewExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -280,7 +298,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SAMessageViewExample/SAMessageViewExample-Prefix.pch";
 				INFOPLIST_FILE = "SAMessageViewExample/SAMessageViewExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -304,6 +324,7 @@
 				9BCDADED16129DCD0032A410 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
