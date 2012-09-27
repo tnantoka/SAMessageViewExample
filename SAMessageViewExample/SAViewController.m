@@ -46,6 +46,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return (toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
 - (void)showAction:(id)sender {
     SAMessageView *messageView = [[SAMessageView alloc] initWithParentView:self.navigationController.view];
     [messageView show];

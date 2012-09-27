@@ -10,6 +10,8 @@
 		9B132AAD16133F440061337A /* SAMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B132AAC16133F440061337A /* SAMessageManager.m */; };
 		9B132AB01613498C0061337A /* BNCloseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B132AAF1613498C0061337A /* BNCloseLabel.m */; };
 		9B132AB716134D560061337A /* SAMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B132AB616134D560061337A /* SAMessage.m */; };
+		9B132ADE1614784A0061337A /* SAMessageView_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B132ADD1614784A0061337A /* SAMessageView_logo.png */; };
+		9B132AE0161478A00061337A /* SAMessageView_link.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B132ADF161478A00061337A /* SAMessageView_link.png */; };
 		9BCDADC916129DCD0032A410 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADC816129DCD0032A410 /* UIKit.framework */; };
 		9BCDADCB16129DCD0032A410 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADCA16129DCD0032A410 /* Foundation.framework */; };
 		9BCDADCD16129DCD0032A410 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BCDADCC16129DCD0032A410 /* CoreGraphics.framework */; };
@@ -31,6 +33,8 @@
 		9B132AAF1613498C0061337A /* BNCloseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNCloseLabel.m; sourceTree = "<group>"; };
 		9B132AB516134D560061337A /* SAMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMessage.h; sourceTree = "<group>"; };
 		9B132AB616134D560061337A /* SAMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMessage.m; sourceTree = "<group>"; };
+		9B132ADD1614784A0061337A /* SAMessageView_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SAMessageView_logo.png; sourceTree = "<group>"; };
+		9B132ADF161478A00061337A /* SAMessageView_link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SAMessageView_link.png; sourceTree = "<group>"; };
 		9BCDADC416129DCD0032A410 /* SAMessageViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SAMessageViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCDADC816129DCD0032A410 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BCDADCA16129DCD0032A410 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -75,6 +79,15 @@
 				9B132AB616134D560061337A /* SAMessage.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9B132ACA1614699D0061337A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				9B132ADD1614784A0061337A /* SAMessageView_logo.png */,
+				9B132ADF161478A00061337A /* SAMessageView_link.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		9BCDADB916129DCD0032A410 = {
@@ -139,6 +152,7 @@
 				9BCDAE2B1612A9CE0032A410 /* SAMessageView.m */,
 				9B132AAA16133EF60061337A /* Models */,
 				9BCDAE2D1612AAEC0032A410 /* Libraries */,
+				9B132ACA1614699D0061337A /* Images */,
 			);
 			path = SAMessageView;
 			sourceTree = "<group>";
@@ -216,6 +230,8 @@
 				9BCDADDB16129DCD0032A410 /* Default.png in Resources */,
 				9BCDADDD16129DCD0032A410 /* Default@2x.png in Resources */,
 				9BCDADDF16129DCD0032A410 /* Default-568h@2x.png in Resources */,
+				9B132ADE1614784A0061337A /* SAMessageView_logo.png in Resources */,
+				9B132AE0161478A00061337A /* SAMessageView_link.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

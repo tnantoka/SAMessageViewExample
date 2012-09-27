@@ -13,7 +13,7 @@
 
 #define API_DOMAIN @"http://localhost:3000"
 //#define API_DOMAIN @"http://sorryapp.net"
-#define FETCH_URI [NSString stringWithFormat:@"%@/api/%%@/messages.xml?l=%%@&p=%%d&n=%d", API_DOMAIN, 5]
+#define FETCH_URI [NSString stringWithFormat:@"%@/api/%%@/messages.xml?l=%%@&p=%%d&n=%d", API_DOMAIN, 3]
 
 #define kSASettingKeyCheckedAt @"kSAKeyCheckedAt"
 
@@ -106,7 +106,7 @@ static SAMessageManager *_sharedInstance = nil;
     });
 }
 
-# pragma mark - Utilities
+# pragma mark - Private methods
 
 - (void)_notifyFail:(NSString *)name message:(NSString *)message {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
