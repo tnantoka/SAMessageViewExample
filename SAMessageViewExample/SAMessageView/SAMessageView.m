@@ -157,6 +157,8 @@ enum {
         [logoButton sizeToFit];
         logoButton.alpha = 0.6;
         
+        [logoButton addTarget:self action:@selector(logoAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         logoButton.center = footerView.center;
         
         logoButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -216,6 +218,26 @@ enum {
 
 - (void)_updateLoadingStatus:(BOOL)loading {
     
+}
+
+# pragma mark - Button actions
+
+- (void)logoAction:(id)sender {
+    NSString *urlString = @"http://sorryapp.net/";
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)linkAction:(id)sender {
+    
+    UIButton *button = (UIButton *)sender;
+    int row = button.titleLabel.tag;
+    
+    SAMessage *message = [_messages objectAtIndex:row];
+    
+    NSString *urlString = message.link;
+    NSURL *url = [NSURL URLWithString:urlString];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 # pragma mark - BNCloseLabelDelegate
@@ -299,13 +321,13 @@ enum {
 
 - (void)_initCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.row < _messages.count) {
-        [self _buildContentView:cell];
+        [self _buildContentView:cell atIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if(indexPath.row == _messages.count) {
     }
 }
 
-- (void)_buildContentView:(UITableViewCell *)cell {
+- (void)_buildContentView:(UITableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath {
 
     
     float tableWitdh = MIN(_tableView.frame.size.width, _tableView.frame.size.height) - CELL_MARGIN * 2;
@@ -384,6 +406,9 @@ enum {
     [linkButton setTitle:@"test" forState:UIControlStateNormal];
     linkButton.frame = CGRectMake(tableWitdh - linkWidth + CELL_MARGIN, y, linkWidth, 20);
     [linkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    linkButton.titleLabel.tag = indexPath.row;
+    [linkButton addTarget:self action:@selector(linkAction:) forControlEvents:UIControlEventTouchUpInside];
     
     linkButton.layer.cornerRadius = linkButton.frame.size.height / 2.0;
     //linkButton.layer.borderColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f].CGColor;
@@ -524,7 +549,7 @@ enum {
     
     if (indexPath.row < _messages.count) {
         UITableViewCell *dummyCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"dummyCell"];
-        [self _buildContentView:dummyCell];
+        [self _buildContentView:dummyCell atIndexPath:indexPath];
         [self _updateContentView:dummyCell atIndexPath:indexPath];
 
 #if !__has_feature(objc_arc)
