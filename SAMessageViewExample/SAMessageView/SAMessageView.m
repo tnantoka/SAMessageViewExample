@@ -12,11 +12,10 @@
 #import "BNCloseLabel.h"
 #import "SAMessageManager.h"
 #import "SAMessage.h"
+#import "SAMessageCell.h"
 
 //#define WRAPPER_MARGIN 10.0f
 #define TABLE_MARGIN 10.0f
-#define CELL_MARGIN 10.0f
-#define NEW_MARGIN 2.5f
 
 #define STATUS_BAR_HEIGHT 20.0f
 #define DURATION 0.2f
@@ -77,11 +76,11 @@ enum {
     
     self = [super initWithFrame:frame];
     
-    float WRAPPER_MARGIN = 0;
+    float wrapperMargin = 0;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        WRAPPER_MARGIN = 10.0f;
+        wrapperMargin = 10.0f;
     } else {
-        WRAPPER_MARGIN = 150.0f;
+        wrapperMargin = 150.0f;
     }
     
     if (self) {
@@ -89,7 +88,7 @@ enum {
                 
         // Wrapper (width is fixed)
         //UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(WRAPPER_MARGIN, WRAPPER_MARGIN + STATUS_BAR_HEIGHT, parentView.frame.size.width - WRAPPER_MARGIN * 2, frame.size.height - WRAPPER_MARGIN * 2 - STATUS_BAR_HEIGHT)];
-        UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(WRAPPER_MARGIN, WRAPPER_MARGIN + STATUS_BAR_HEIGHT, frame.size.width - WRAPPER_MARGIN * 2, frame.size.height - WRAPPER_MARGIN * 2 - STATUS_BAR_HEIGHT)];
+        UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(wrapperMargin, wrapperMargin + STATUS_BAR_HEIGHT, frame.size.width - wrapperMargin * 2, frame.size.height - wrapperMargin * 2 - STATUS_BAR_HEIGHT)];
         wrapperView.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:1.0f];
         [self addSubview:wrapperView];
 
@@ -118,7 +117,6 @@ enum {
         CAGradientLayer *gradient = [CAGradientLayer layer];
         //gradient.frame = gradientView.bounds;
         float maxSize = MAX(gradientView.bounds.size.width, gradientView.bounds.size.height) + STATUS_BAR_HEIGHT;
-        NSLog(@"maxSize %f, %f, %f", maxSize, gradientView.bounds.size.height, gradientView.bounds.size.width);
         gradient.frame = CGRectMake(0, 0, maxSize, maxSize);
         gradient.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor darkGrayColor].CGColor];
         [gradientView.layer insertSublayer:gradient atIndex:0];
@@ -305,7 +303,7 @@ enum {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[SAMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 
         [self _initCell:cell atIndexPath:indexPath];
         
@@ -321,219 +319,47 @@ enum {
 
 - (void)_initCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.row < _messages.count) {
-        [self _buildContentView:cell atIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else if(indexPath.row == _messages.count) {
     }
 }
 
-- (void)_buildContentView:(UITableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath {
-
-    
-    float tableWitdh = MIN(_tableView.frame.size.width, _tableView.frame.size.height) - CELL_MARGIN * 2;
-    //float tableWitdh = _tableView.frame.size.width - CELL_MARGIN * 2;
-    
-    UIView *contentWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableWitdh + CELL_MARGIN * 2, cell.contentView.frame.size.height)];
-    //contentWrapper.backgroundColor = [UIColor blueColor];
-    contentWrapper.tag = SAMessageCellTagWrapper;
-    
-    contentWrapper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    
-    [cell.contentView addSubview:contentWrapper];
-    
-    // Title
-    float y = CELL_MARGIN * 1.5;
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, tableWitdh, 30)];
-    titleLabel.tag = SAMessageCellTagTitle;
-    titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    
-    titleLabel.shadowColor = [UIColor lightGrayColor];
-    titleLabel.shadowOffset = CGSizeMake(0, 1.0f);
-    
-    //[cell.contentView addSubview:titleLabel];
-    [contentWrapper addSubview:titleLabel];
-    
-    // New
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, 30, 20)];
-    newLabel.text = @"New";
-    newLabel.tag = SAMessageCellTagNew;
-    newLabel.textAlignment = UITextAlignmentCenter;
-    newLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-    newLabel.textColor = [UIColor orangeColor];
-    newLabel.backgroundColor = [UIColor clearColor];
-    //newLabel.center = CGPointMake(newLabel.center.x, titleLabel.center.y);
-    
-    //[cell.contentView addSubview:newLabel];
-    [contentWrapper addSubview:newLabel];
-    
-    y += titleLabel.frame.size.height;
-
-    // Body
-    UILabel *bodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, tableWitdh, 0)];
-    bodyLabel.tag = SAMessageCellTagBody;
-    bodyLabel.lineBreakMode = UILineBreakModeWordWrap;
-    bodyLabel.numberOfLines = 0;
-    bodyLabel.font = [UIFont systemFontOfSize:15.0f];
-    bodyLabel.textColor = [UIColor whiteColor];
-    bodyLabel.backgroundColor = [UIColor clearColor];
-    
-    //[cell.contentView addSubview:bodyLabel];
-    [contentWrapper addSubview:bodyLabel];
-    
-    y += bodyLabel.frame.size.height;
-    
-    // Updated at
-    UILabel *updatedAtLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, tableWitdh * 0.49, 30)];
-    updatedAtLabel.tag = SAMessageCellTagUpdatedAt;
-    updatedAtLabel.font = [UIFont systemFontOfSize:13.0f];
-    updatedAtLabel.textColor = [UIColor lightGrayColor];
-    updatedAtLabel.backgroundColor = [UIColor clearColor];
-
-    //[cell.contentView addSubview:updatedAtLabel];
-    [contentWrapper addSubview:updatedAtLabel];
-    
-    // Link
-    UIButton *linkButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    linkButton.tag = SAMessageCellTagLink;
-    [linkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    linkButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    linkButton.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.9];
-    //[linkButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    float linkWidth = tableWitdh * 0.49;
-    //float linkWidth = 130;
-    [linkButton setTitle:@"test" forState:UIControlStateNormal];
-    linkButton.frame = CGRectMake(tableWitdh - linkWidth + CELL_MARGIN, y, linkWidth, 20);
-    [linkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    linkButton.titleLabel.tag = indexPath.row;
-    [linkButton addTarget:self action:@selector(linkAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    linkButton.layer.cornerRadius = linkButton.frame.size.height / 2.0;
-    //linkButton.layer.borderColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f].CGColor;
-    //linkButton.layer.borderWidth = 0.9f;
-    linkButton.layer.masksToBounds = YES;
-    
-    //[linkButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //linkButton.titleLabel.shadowOffset = CGSizeMake(0, 1.0f);
-    
-    //linkButton.reversesTitleShadowWhenHighlighted = YES;
-    //linkButton.showsTouchWhenHighlighted = YES;
-    
-    NSLog(@"link width %f", linkButton.frame.size.width);
-    
-    UIImage *linkBG = [UIImage imageNamed:@"SAMessageView_link"];
-    [linkButton setBackgroundImage:linkBG forState:UIControlStateNormal];
-
-    //linkButton.autoresizingMask = UIViewAutoresizingNone;
-    
-    //[cell.contentView addSubview:linkButton];
-    [contentWrapper addSubview:linkButton];
-
-    cell.autoresizingMask = UIViewAutoresizingNone;
-    cell.contentView.autoresizingMask = UIViewAutoresizingNone;
-    
-    //cell.contentView.backgroundColor = [UIColor whiteColor];
-    
-#if !__has_feature(objc_arc)
-    [titleLabel release];
-    [bodyLabel release];
-    [updatedAtLabel release];
-    [newLabel release];
-    [contentWrapper release];
-#endif
-
-}
-
-- (void)_updateContentView:(UITableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath {
+- (void)_updateContentView:(SAMessageCell *)cell atIndexPath:(NSIndexPath*)indexPath {
     
     SAMessage *message = [_messages objectAtIndex:indexPath.row];
 
-    UIView *contentWrapper = [cell.contentView viewWithTag:SAMessageCellTagWrapper];
-    
     // Body
-    //UILabel *bodyLabel = (UILabel *)[cell.contentView viewWithTag:SAMessageCellTagBody];
-    UILabel *bodyLabel = (UILabel *)[contentWrapper viewWithTag:SAMessageCellTagBody];
-    bodyLabel.text = message.body;
-    
-    NSLog(@"body %@",  bodyLabel);
-
-    float bodyHeight = [message.body sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(bodyLabel.frame.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap].height;
-    CGRect bodyFrame = bodyLabel.frame;
-    bodyFrame.size.height = MAX(50, bodyHeight);
-    bodyLabel.frame = bodyFrame;
-
-    // New
-    //UILabel *newLabel = (UILabel *)[cell.contentView viewWithTag:SAMessageCellTagNew];
-    UILabel *newLabel = (UILabel *)[contentWrapper viewWithTag:SAMessageCellTagNew];
+    cell.bodyLabel.text = message.body;
     
     // Title
-    //UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:SAMessageCellTagTitle];
-    UILabel *titleLabel = (UILabel *)[contentWrapper viewWithTag:SAMessageCellTagTitle];
-    titleLabel.text = message.title;
-    [titleLabel sizeToFit];
-    
-    float maxWidth = bodyLabel.frame.size.width - newLabel.frame.size.width - NEW_MARGIN;
-    CGRect titleFrame = titleLabel.frame;
-    titleFrame.size.width = MIN(titleLabel.frame.size.width, maxWidth);
-    titleLabel.frame = titleFrame;
-    
-    CGRect newFrame = newLabel.frame;
-    newFrame.origin.x = titleLabel.frame.origin.x + titleLabel.frame.size.width + NEW_MARGIN;
-    newLabel.frame = newFrame;
+    cell.titleLabel.text = message.title;
     
     // Updated at
-    //UILabel *updatedAtLabel = (UILabel *)[cell.contentView viewWithTag:SAMessageCellTagUpdatedAt];
-    UILabel *updatedAtLabel = (UILabel *)[contentWrapper viewWithTag:SAMessageCellTagUpdatedAt];
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setLocale:[NSLocale systemLocale]];
     [formatter setTimeZone:[NSTimeZone systemTimeZone]];
-    [formatter setDateFormat:@"yyyy-mm-dd HH:mm:ss"];
-    updatedAtLabel.text = [formatter stringFromDate:message.updated_at];
-
-    CGRect updatedAtFrame = updatedAtLabel.frame;
-    updatedAtFrame.origin.y = bodyLabel.frame.origin.y + bodyLabel.frame.size.height;
-    updatedAtLabel.frame = updatedAtFrame;
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    cell.updatedAtLabel.text = [formatter stringFromDate:message.updated_at];
 
     // Link button
-    //UIButton *linkButton = (UIButton *)[cell.contentView viewWithTag:SAMessageCellTagLink];
-    UIButton *linkButton = (UIButton *)[contentWrapper viewWithTag:SAMessageCellTagLink];
     if (message.link.length > 0) {
-        [linkButton setTitle:[NSString stringWithFormat:@"%@", message.link_label] forState:UIControlStateNormal];
+        [cell.linkButton setTitle:[NSString stringWithFormat:@"%@", message.link_label] forState:UIControlStateNormal];
         
-        linkButton.center = CGPointMake(linkButton.center.x, updatedAtLabel.center.y);
-        linkButton.hidden = NO;
     } else {
-        linkButton.hidden = YES;
+        cell.linkButton.hidden = YES;
     }
     
-    // Content view height
-    float height = updatedAtLabel.frame.origin.y + updatedAtLabel.frame.size.height + CELL_MARGIN;
+    [cell layoutSubviews];
     
-    CGRect contentFrame =  cell.contentView.frame;
-    contentFrame.size.height = height;
-    cell.contentView.frame = contentFrame;
-    
-    CGRect wrapperFrame =  contentWrapper.frame;
-    wrapperFrame.origin.x =  cell.contentView.frame.size.width / 2 - wrapperFrame.size.width / 2;
-    wrapperFrame.size.height = height;
-    contentWrapper.frame = wrapperFrame;
-    
-    NSLog(@"wraper height %f, %f", wrapperFrame.size.height, cell.contentView.frame.size.height);
-
 #if !__has_feature(objc_arc)
     [formatter release];
 #endif
     
-
 }
 
-- (void)_updateCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+- (void)_updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.row < _messages.count) {
-        [self _updateContentView:cell atIndexPath:indexPath];
-        NSLog(@"height: %f", cell.contentView.frame.size.height);
+        [self _updateContentView:(SAMessageCell *)cell atIndexPath:indexPath];
     } else if(indexPath.row == _messages.count) {
         cell.textLabel.text = @"Next";
     }
@@ -548,8 +374,14 @@ enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row < _messages.count) {
-        UITableViewCell *dummyCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"dummyCell"];
-        [self _buildContentView:dummyCell atIndexPath:indexPath];
+        SAMessageCell *dummyCell = [[SAMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"dummyCell"];
+        
+        CGRect frame = dummyCell.contentWrapper.frame;
+        frame.size.width = _tableView.frame.size.width;
+        dummyCell.contentWrapper.frame = frame;
+        
+        NSLog(@"table width = %f ,wrapper width = %f, content width %f", tableView.frame.size.width, dummyCell.contentWrapper.frame.size.width, dummyCell.contentView.frame.size.width);
+        
         [self _updateContentView:dummyCell atIndexPath:indexPath];
 
 #if !__has_feature(objc_arc)
@@ -573,8 +405,6 @@ enum {
     NSMutableArray *messages = [[notification userInfo] objectForKey:@"messages"];
     self.messages = messages;
     [_tableView reloadData];
-    
-    NSLog(@"finish fetch %@", messages);
     
     switch (_modalType) {
         case SAMessageViewModalTypeFade: {
@@ -622,7 +452,6 @@ enum {
     
     NSLog(@"fail fetch: %@", message);
 }
-
 
 
 @end

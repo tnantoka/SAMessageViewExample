@@ -43,8 +43,6 @@ static SAMessageManager *_sharedInstance = nil;
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0f];
     
-    NSLog(@"url %@", url);
-    
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
     
@@ -66,7 +64,6 @@ static SAMessageManager *_sharedInstance = nil;
         
         // Parse error
         if (error) {
-            NSLog(@"parset %@", [error localizedDescription]);
             [self _notifyFail:SAMessageManagerDidFailFetch message:[error localizedDescription]];
             return;
         }
