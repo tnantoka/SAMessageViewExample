@@ -52,6 +52,8 @@
 
 - (void)showAction:(id)sender {
     SAMessageView *messageView = [[SAMessageView alloc] initWithParentView:self.navigationController.view];
+    messageView.apiKey = @"c42c815cab688baebc63c6f3e61526f578378b3a";
+    messageView.alertWhenError = YES;
     [messageView show];
     [messageView release];
 }
@@ -59,7 +61,8 @@
 - (void)forceAction:(id)sender {
     SAMessageView *messageView = [[SAMessageView alloc] initWithParentView:self.navigationController.view];
     messageView.modalType = SAMessageViewModalTypeSlide;
-    messageView.apiKey = @"077c35ca5c682ea3875d943260d1c58c6040337d";
+    messageView.apiKey = @"c3f093942622c13333368750b3b1b70dd30caf22";
+    messageView.forcing = YES;
     [messageView show];
     [messageView release];
 }

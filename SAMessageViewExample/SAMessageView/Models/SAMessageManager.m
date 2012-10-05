@@ -11,11 +11,9 @@
 #import "SAMessage.h"
 
 
-#define API_DOMAIN @"http://localhost:3000"
-//#define API_DOMAIN @"http://sorryapp.net"
+//#define API_DOMAIN @"http://localhost:3000"
+#define API_DOMAIN @"http://sorryapp.net"
 #define FETCH_URI [NSString stringWithFormat:@"%@/api/%%@/messages.xml?l=%%@&p=%%d&n=%d", API_DOMAIN, 3]
-
-#define kSASettingKeyCheckedAt @"kSAKeyCheckedAt"
 
 NSString *SAMessageManagerDidFinishFetch = @"SAMessageManagerDidFinishFetch";
 NSString *SAMessageManagerDidFailFetch = @"SAMessageManagerDidFailFetch";
@@ -34,11 +32,11 @@ static SAMessageManager *_sharedInstance = nil;
 
 # pragma mark - SorryApp API
 
-- (void)fetch:(NSString *)apiKey {
+- (void)fetch:(NSString *)apiKey page:(int)page {
 
     NSString *locale = [[NSLocale preferredLanguages] objectAtIndex:0];
     
-    NSString *urlString = [NSString stringWithFormat:FETCH_URI, apiKey, locale, 0];
+    NSString *urlString = [NSString stringWithFormat:FETCH_URI, apiKey, locale, page];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0f];

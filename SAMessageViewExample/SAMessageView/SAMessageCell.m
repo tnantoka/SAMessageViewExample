@@ -14,6 +14,19 @@
 #define MAX_HEIGHT 500.0f
 #define NEW_MARGIN 2.5f
 
+
+@interface SAMessageCellBodyLabel : UILabel
+@end
+
+@implementation SAMessageCellBodyLabel
+- (void)drawTextInRect:(CGRect)rect
+{
+    UIEdgeInsets insets = {10.0f, 10.0f, 10.0f, 10.0f};
+    return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, insets)];
+}
+@end
+
+
 @implementation SAMessageCell
 
 - (void)dealloc {
@@ -21,7 +34,7 @@
     [_titleLabel release];
     [_bodyLabel release];
     [_updatedAtLabel release];
-    [_newLabel release];
+    [_isNewLabel release];
     [_contentWrapper release];
     
     [super dealloc];
@@ -77,31 +90,41 @@
     [contentWrapper addSubview:titleLabel];
     
     // New
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, 30, 20)];
-    newLabel.text = @"New";
-    newLabel.textAlignment = UITextAlignmentCenter;
-    newLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-    newLabel.textColor = [UIColor orangeColor];
-    newLabel.backgroundColor = [UIColor clearColor];
-    //newLabel.center = CGPointMake(newLabel.center.x, titleLabel.center.y);
+    UILabel *isNewLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, 30, 20)];
+    isNewLabel.text = @"New";
+    isNewLabel.textAlignment = UITextAlignmentCenter;
+    isNewLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    isNewLabel.textColor = [UIColor orangeColor];
+    isNewLabel.backgroundColor = [UIColor clearColor];
+    //isNewLabel.center = CGPointMake(isNewLabel.center.x, titleLabel.center.y);
+    isNewLabel.hidden = NO;
     
     contentWrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-    //[self.contentView addSubview:newLabel];
-    [contentWrapper addSubview:newLabel];
+    //[self.contentView addSubview:isNewLabel];
+    [contentWrapper addSubview:isNewLabel];
 
 
     y += titleLabel.frame.size.height;
     
     // Body
-    UILabel *bodyLabel = [[UILabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, contentWidth, 0)];
+    UILabel *bodyLabel = [[SAMessageCellBodyLabel alloc] initWithFrame:CGRectMake(CELL_MARGIN, y, contentWidth, 0)];
     bodyLabel.lineBreakMode = UILineBreakModeWordWrap;
     bodyLabel.numberOfLines = 0;
     bodyLabel.font = [UIFont systemFontOfSize:15.0f];
     bodyLabel.textColor = [UIColor whiteColor];
+
+    //bodyLabel.backgroundColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f];
     bodyLabel.backgroundColor = [UIColor clearColor];
-    
+
     //bodyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
+    //bodyLabel.backgroundColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f];
+
+    bodyLabel.layer.borderColor = [UIColor colorWithRed:0.4f green:0.4f blue:0.4f alpha:1.0f].CGColor;
+    bodyLabel.layer.borderWidth = 0.9f;
+    
+    bodyLabel.layer.cornerRadius = 3.0f;
     
     //[self.contentView addSubview:bodyLabel];
     [contentWrapper addSubview:bodyLabel];
@@ -121,16 +144,16 @@
     UIButton *linkButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [linkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     linkButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    linkButton.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.9];
+    linkButton.backgroundColor = [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.9f];
     //[linkButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     float linkWidth = contentWidth * 0.49;
     //float linkWidth = 130;
-    [linkButton setTitle:@"test" forState:UIControlStateNormal];
     linkButton.frame = CGRectMake(contentWidth - linkWidth + CELL_MARGIN, y, linkWidth, 20);
     [linkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    [linkButton addTarget:self action:@selector(linkAction:) forControlEvents:UIControlEventTouchUpInside];
-    
+    linkButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    linkButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10.0f, 0, 10.0f);
+    linkButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        
     linkButton.layer.cornerRadius = linkButton.frame.size.height / 2.0;
     //linkButton.layer.borderColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f].CGColor;
     //linkButton.layer.borderWidth = 0.9f;
@@ -161,14 +184,14 @@
     self.bodyLabel = bodyLabel;
     self.updatedAtLabel = updatedAtLabel;
     self.linkButton = linkButton;
-    self.newLabel = newLabel;
+    self.isNewLabel = isNewLabel;
     self.contentWrapper = contentWrapper;
     
 #if !__has_feature(objc_arc)
     [titleLabel release];
     [bodyLabel release];
     [updatedAtLabel release];
-    [newLabel release];
+    [isNewLabel release];
     
     [contentWrapper release];
 #endif
@@ -193,23 +216,23 @@
     bodyFrame.size.height = MAX(50, bodyHeight);
     _bodyLabel.frame = bodyFrame;
 
-    NSLog(@"inner body width %f, inner content %f", _bodyLabel.frame.size.width, self.contentView.frame.size.width);
-    
     // Title
     [_titleLabel sizeToFit];
     
-    float maxWidth = _bodyLabel.frame.size.width - _newLabel.frame.size.width - NEW_MARGIN;
+    float maxWidth = _bodyLabel.frame.size.width - _isNewLabel.frame.size.width - NEW_MARGIN;
     CGRect titleFrame = _titleLabel.frame;
     titleFrame.size.width = MIN(_titleLabel.frame.size.width, maxWidth);
     _titleLabel.frame = titleFrame;
     
-    CGRect newFrame = _newLabel.frame;
+    _titleLabel.adjustsFontSizeToFitWidth = YES;
+    
+    CGRect newFrame = _isNewLabel.frame;
     newFrame.origin.x = _titleLabel.frame.origin.x + _titleLabel.frame.size.width + NEW_MARGIN;
-    _newLabel.frame = newFrame;
+    _isNewLabel.frame = newFrame;
     
     // Updated at
     CGRect updatedAtFrame = _updatedAtLabel.frame;
-    updatedAtFrame.origin.y = _bodyLabel.frame.origin.y + _bodyLabel.frame.size.height;
+    updatedAtFrame.origin.y = _bodyLabel.frame.origin.y + _bodyLabel.frame.size.height + CELL_MARGIN / 4;
     _updatedAtLabel.frame = updatedAtFrame;
     
     // Link button
@@ -223,8 +246,7 @@
     
     // Content view height
     float height = _updatedAtLabel.frame.origin.y + _updatedAtLabel.frame.size.height + CELL_MARGIN;
-    
-    
+
     CGRect contentFrame =  self.contentView.frame;
     contentFrame.size.height = height;
     self.contentView.frame = contentFrame;

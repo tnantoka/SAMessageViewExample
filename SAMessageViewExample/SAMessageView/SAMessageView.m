@@ -17,19 +17,16 @@
 //#define WRAPPER_MARGIN 10.0f
 #define TABLE_MARGIN 10.0f
 
-#define STATUS_BAR_HEIGHT 20.0f
+//#define STATUS_BAR_HEIGHT 20.0f
 #define DURATION 0.2f
 
-enum {
-    SAMessageCellTagTitle = 1,
-    SAMessageCellTagNew,
-    SAMessageCellTagBody,
-    SAMessageCellTagLink,
-    SAMessageCellTagUpdatedAt,
-    SAMessageCellTagWrapper,
-};
+#define kSADefaulsKeyCheckedAt @"kSADefaulsKeyCheckedAt"
 
-@interface SAMessageView ()
+@interface SAMessageView () {
+    float _statuBarHeight;
+    BOOL _hasNext;
+    int _page;
+}
 
 @property (nonatomic, retain) BNCloseLabel *closeLabel;
 @property (nonatomic, retain) NSMutableArray *messages;
@@ -83,12 +80,18 @@ enum {
         wrapperMargin = 150.0f;
     }
     
+    if ([UIApplication sharedApplication].statusBarHidden) {
+        _statuBarHeight = 0;
+    } else {
+        _statuBarHeight = 20.0f;
+    }
+    
     if (self) {
         // Initialization code
                 
         // Wrapper (width is fixed)
         //UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(WRAPPER_MARGIN, WRAPPER_MARGIN + STATUS_BAR_HEIGHT, parentView.frame.size.width - WRAPPER_MARGIN * 2, frame.size.height - WRAPPER_MARGIN * 2 - STATUS_BAR_HEIGHT)];
-        UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(wrapperMargin, wrapperMargin + STATUS_BAR_HEIGHT, frame.size.width - wrapperMargin * 2, frame.size.height - wrapperMargin * 2 - STATUS_BAR_HEIGHT)];
+        UIView *wrapperView = [[UIView alloc] initWithFrame:CGRectMake(wrapperMargin, wrapperMargin + _statuBarHeight, frame.size.width - wrapperMargin * 2, frame.size.height - wrapperMargin * 2 - _statuBarHeight)];
         wrapperView.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:1.0f];
         [self addSubview:wrapperView];
 
@@ -116,7 +119,7 @@ enum {
         UIView *gradientView = [[UIView alloc] initWithFrame:wrapperView.bounds];
         CAGradientLayer *gradient = [CAGradientLayer layer];
         //gradient.frame = gradientView.bounds;
-        float maxSize = MAX(gradientView.bounds.size.width, gradientView.bounds.size.height) + STATUS_BAR_HEIGHT;
+        float maxSize = MAX(gradientView.bounds.size.width, gradientView.bounds.size.height) + _statuBarHeight;
         gradient.frame = CGRectMake(0, 0, maxSize, maxSize);
         gradient.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor darkGrayColor].CGColor];
         [gradientView.layer insertSublayer:gradient atIndex:0];
@@ -139,6 +142,8 @@ enum {
 
         tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
         [wrapperView addSubview:tableView];
 
         self.tableView = tableView;
@@ -167,7 +172,6 @@ enum {
         // Indicator
         UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         indicatorView.center = tableView.center;
-        [indicatorView startAnimating];
         
         indicatorView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
 
@@ -181,8 +185,10 @@ enum {
         
         _autoClose = YES;
         _forcing = NO;
+        _alertWhenError = NO;
         _modalType = SAMessageViewModalTypeFade;
         self.apiKey = @"";
+        _page = 0;
         
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
@@ -215,7 +221,63 @@ enum {
 # pragma mark - Private methods
 
 - (void)_updateLoadingStatus:(BOOL)loading {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = loading;
+    if (loading) {
+        [_indicatorView startAnimating];
+    } else {
+        [_indicatorView stopAnimating];
+    }
+}
+
+- (void)_showModal {
+    [_tableView reloadData];
     
+    switch (_modalType) {
+        case SAMessageViewModalTypeFade: {
+            self.alpha = 1.0f;
+            _wrapperView.alpha = 0;
+            _closeLabel.alpha = 0;
+            [UIView animateWithDuration:DURATION animations:^{
+                _wrapperView.alpha = 1.0f;
+                _closeLabel.alpha = 1.0f;
+            } completion:^(BOOL finished) {
+            }];
+            break;
+        }
+        case SAMessageViewModalTypeSlide: {
+            self.alpha = 1.0f;
+            
+            CGRect wrapperFrame = _wrapperView.frame;
+            float wrapperOriginY = wrapperFrame.origin.y;
+            wrapperFrame.origin.y = self.frame.size.height;
+            _wrapperView.frame = wrapperFrame;
+            wrapperFrame.origin.y = wrapperOriginY;
+            
+            CGRect closeFrame = _closeLabel.frame;
+            float closeOriginY = closeFrame.origin.y;
+            closeFrame.origin.y = self.frame.size.height;
+            _closeLabel.frame = closeFrame;
+            closeFrame.origin.y = closeOriginY;
+            
+            [UIView animateWithDuration:DURATION animations:^{
+                _wrapperView.frame = wrapperFrame;
+                _closeLabel.frame = closeFrame;
+            } completion:^(BOOL finished) {
+            }];
+            
+            break;
+        }
+    }    
+}
+
+- (void)_fetch {
+    
+    [self _updateLoadingStatus:YES];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(messageManagerDidFinishFetch:) name:SAMessageManagerDidFinishFetch object:nil];
+    [center addObserver:self selector:@selector(messageManagerDidFailFetch:) name:SAMessageManagerDidFailFetch object:nil];
+    [[SAMessageManager shared] fetch:_apiKey page:_page];
 }
 
 # pragma mark - Button actions
@@ -229,7 +291,7 @@ enum {
 - (void)linkAction:(id)sender {
     
     UIButton *button = (UIButton *)sender;
-    int row = button.titleLabel.tag;
+    int row = button.tag;
     
     SAMessage *message = [_messages objectAtIndex:row];
     
@@ -250,12 +312,7 @@ enum {
 # pragma mark - Pulic methods
 
 - (void)show {
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(messageManagerDidFinishFetch:) name:SAMessageManagerDidFinishFetch object:nil];
-    [center addObserver:self selector:@selector(messageManagerDidFailFetch:) name:SAMessageManagerDidFailFetch object:nil];
-    [[SAMessageManager shared] fetch:_apiKey];
-    
+    [self _fetch];
 }
 
 - (void)hide {
@@ -294,17 +351,25 @@ enum {
 # pragma mark - UITableViewDelegate, UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _messages.count;
+    if (_hasNext) {
+        return _messages.count + 1;
+    } else {
+        return _messages.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //static NSString *CellIdentifier = @"Cell";
-    NSString *CellIdentifier = [NSString stringWithFormat:@"%d%d", indexPath.section, indexPath.row];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"%d%d%d", _page, indexPath.section, indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[SAMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
+        
+        if (indexPath.row < _messages.count) {
+            cell = [[SAMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        } else {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
         [self _initCell:cell atIndexPath:indexPath];
         
 #if !__has_feature(objc_arc)
@@ -320,8 +385,33 @@ enum {
 - (void)_initCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.row < _messages.count) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [self _buildContentView:(SAMessageCell *)cell atIndexPath:indexPath];
     } else if(indexPath.row == _messages.count) {
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        
+        UILabel *nextLabel = [[UILabel alloc] initWithFrame:cell.frame];
+        nextLabel.text = NSLocalizedString(@"Next", @"");
+        nextLabel.textColor = [UIColor whiteColor];
+        nextLabel.textAlignment = UITextAlignmentCenter;
+        nextLabel.font = [UIFont systemFontOfSize:16.0f];
+        nextLabel.backgroundColor = [UIColor clearColor];
+        
+        nextLabel.center = cell.center;
+        nextLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+
+        [cell.contentView addSubview:nextLabel];
+
+#if !__has_feature(objc_arc)
+        [nextLabel autorelease];
+#endif
+
     }
+}
+
+- (void)_buildContentView:(SAMessageCell *)cell atIndexPath:(NSIndexPath*)indexPath {
+    cell.linkButton.tag = indexPath.row;
+    [cell.linkButton addTarget:self action:@selector(linkAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)_updateContentView:(SAMessageCell *)cell atIndexPath:(NSIndexPath*)indexPath {
@@ -341,12 +431,19 @@ enum {
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     cell.updatedAtLabel.text = [formatter stringFromDate:message.updated_at];
 
-    // Link button
+    // Link
     if (message.link.length > 0) {
         [cell.linkButton setTitle:[NSString stringWithFormat:@"%@", message.link_label] forState:UIControlStateNormal];
         
     } else {
         cell.linkButton.hidden = YES;
+    }
+    
+    // New
+    if (message.isNew) {
+        cell.isNewLabel.hidden = NO;
+    } else {
+        cell.isNewLabel.hidden = YES;
     }
     
     [cell layoutSubviews];
@@ -361,7 +458,6 @@ enum {
     if (indexPath.row < _messages.count) {
         [self _updateContentView:(SAMessageCell *)cell atIndexPath:indexPath];
     } else if(indexPath.row == _messages.count) {
-        cell.textLabel.text = @"Next";
     }
 }
 
@@ -379,9 +475,7 @@ enum {
         CGRect frame = dummyCell.contentWrapper.frame;
         frame.size.width = _tableView.frame.size.width;
         dummyCell.contentWrapper.frame = frame;
-        
-        NSLog(@"table width = %f ,wrapper width = %f, content width %f", tableView.frame.size.width, dummyCell.contentWrapper.frame.size.width, dummyCell.contentView.frame.size.width);
-        
+                
         [self _updateContentView:dummyCell atIndexPath:indexPath];
 
 #if !__has_feature(objc_arc)
@@ -394,63 +488,71 @@ enum {
         
     }
     
-    return 100.0f;
+    return 44.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if(indexPath.row == _messages.count) {
+        [self _fetch];
+    }
+
 }
 
 # pragma mark - Notifications
 
 - (void)messageManagerDidFinishFetch:(NSNotification*)notification {
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _page++;
+    [self _updateLoadingStatus:NO];
 
     NSMutableArray *messages = [[notification userInfo] objectForKey:@"messages"];
-    self.messages = messages;
-    [_tableView reloadData];
+
+    BOOL hasNext = [[[notification userInfo] objectForKey:@"hasNext"] boolValue];
+    _hasNext = hasNext;
     
-    switch (_modalType) {
-        case SAMessageViewModalTypeFade: {
-            self.alpha = 1.0f;
-            _wrapperView.alpha = 0;
-            _closeLabel.alpha = 0;
-            [UIView animateWithDuration:DURATION animations:^{
-                _wrapperView.alpha = 1.0f;
-                _closeLabel.alpha = 1.0f;
-            } completion:^(BOOL finished) {
-            }];
-            break;
+    if (self.messages.count < 1) {
+
+        self.messages = messages;
+        
+        NSUserDefaults *userDefauls = [NSUserDefaults standardUserDefaults];
+        NSDate *checkdAt = [userDefauls objectForKey:kSADefaulsKeyCheckedAt];
+        
+        BOOL hasNew = NO;
+        for (int i = 0; i < messages.count; i++) {
+            SAMessage *m = [messages objectAtIndex:i];
+            if ([m.updated_at compare:checkdAt] == NSOrderedDescending || (!checkdAt && i == 0)) {
+                m.isNew = YES;
+                hasNew = YES;
+            }
         }
-        case SAMessageViewModalTypeSlide: {
-            self.alpha = 1.0f;
-            
-            CGRect wrapperFrame = _wrapperView.frame;
-            float wrapperOriginY = wrapperFrame.origin.y;
-            wrapperFrame.origin.y = self.frame.size.height;
-            _wrapperView.frame = wrapperFrame;
-            wrapperFrame.origin.y = wrapperOriginY;
-            
-            CGRect closeFrame = _closeLabel.frame;
-            float closeOriginY = closeFrame.origin.y;
-            closeFrame.origin.y = self.frame.size.height;
-            _closeLabel.frame = closeFrame;
-            closeFrame.origin.y = closeOriginY;
-            
-            [UIView animateWithDuration:DURATION animations:^{
-                _wrapperView.frame = wrapperFrame;
-                _closeLabel.frame = closeFrame;
-            } completion:^(BOOL finished) {
-            }];
-            
-            break;
+        
+        [userDefauls setObject:[NSDate date] forKey:kSADefaulsKeyCheckedAt];
+        
+        if (hasNew || _forcing) {
+            [self _showModal];
         }
+
+    } else {
+        [self.messages addObjectsFromArray:messages];
+        [_tableView reloadData];
     }
 
 }
 
 - (void)messageManagerDidFailFetch:(NSNotification*)notification {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-    NSString *message = [[notification userInfo] objectForKey:@"message"];
     
-    NSLog(@"fail fetch: %@", message);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self _updateLoadingStatus:NO];
+    
+    if (_alertWhenError) {
+        NSString *message = [[notification userInfo] objectForKey:@"message"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+    }
+    
 }
 
 

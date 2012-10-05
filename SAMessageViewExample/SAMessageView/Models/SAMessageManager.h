@@ -15,6 +15,6 @@ extern NSString *SAMessageManagerDidFailFetch;
 
 + (SAMessageManager *)shared;
 
-- (void)fetch:(NSString *)apiKey;
+- (void)fetch:(NSString *)apiKey page:(int)page;
 
 @end

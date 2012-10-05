@@ -14,7 +14,7 @@
 @property (nonatomic, retain) UILabel *bodyLabel;
 @property (nonatomic, retain) UILabel *updatedAtLabel;
 @property (nonatomic, retain) UIButton *linkButton;
-@property (nonatomic, retain) UILabel *newLabel;
+@property (nonatomic, retain) UILabel *isNewLabel;
 @property (nonatomic, retain) UIView *contentWrapper;
 
 @end

@@ -22,6 +22,7 @@ typedef enum {
 
 @property (nonatomic) BOOL autoClose;
 @property (nonatomic) BOOL forcing;
+@property (nonatomic) BOOL alertWhenError;
 
 - (id)initWithParentView:(UIView *)ParentView;
 - (void)show;

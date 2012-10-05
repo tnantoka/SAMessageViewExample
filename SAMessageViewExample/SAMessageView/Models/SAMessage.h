@@ -16,4 +16,6 @@
 @property (nonatomic, retain) NSString *link_label;
 @property (nonatomic, retain) NSDate *updated_at;
 
+@property (nonatomic) BOOL isNew;
+
 @end
