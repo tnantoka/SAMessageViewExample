@@ -13,8 +13,8 @@ Like this.
 1. Access to <http://sorryapp.net/>.
 2. Sign in with GitHub.
 3. Go to "Register App" page by upper right menu. 
-4. Input "App Store URI" (for publised ppp) or "App Name" (for developing app).
-5. API Key is in the lowest part of "App page".
+4. Submit "App Store URI" (for publised ppp) or "App Name" (for developing app).
+5. API Key is in the lowest part of "App Page".
 
 ### Add Library
  
@@ -23,10 +23,9 @@ Like this.
 * Import `SAMessageView.h`.
 * Write code.
 
-    SAMessageView *messageView = [[SAMessageView alloc] initWithParentView:self.navigationController.view];
-    messageView.apiKey = @"923111a2216e0d71216a26f5a116e316206959c9";
-    messageView.alertWhenError = YES;
-    [messageView show];
+        SAMessageView *messageView = [[SAMessageView alloc] initWithParentView:self.navigationController.view];
+        messageView.apiKey = @"923111a2216e0d71216a26f5a116e316206959c9";
+        [messageView show];
 	
 ### Powerd by SorryApp
 
