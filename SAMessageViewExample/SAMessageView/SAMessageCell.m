@@ -225,6 +225,7 @@
     _titleLabel.frame = titleFrame;
     
     _titleLabel.adjustsFontSizeToFitWidth = YES;
+    _titleLabel.minimumFontSize = 14.0f;
     
     CGRect newFrame = _isNewLabel.frame;
     newFrame.origin.x = _titleLabel.frame.origin.x + _titleLabel.frame.size.width + NEW_MARGIN;
