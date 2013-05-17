@@ -283,7 +283,7 @@
 # pragma mark - Button actions
 
 - (void)logoAction:(id)sender {
-    NSString *urlString = @"http://sorryapp.net/";
+    NSString *urlString = @"http://sorryapp.bornneet.com/";
     NSURL *url = [NSURL URLWithString:urlString];
     [[UIApplication sharedApplication] openURL:url];
 }

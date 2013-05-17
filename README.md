@@ -10,7 +10,7 @@ Like this.
 
 ### Get API key
 
-1. Access to <http://sorryapp.net/>.
+1. Access to <http://sorryapp.bornneet.com/>.
 2. Sign in with GitHub.
 3. Go to "Register App" page by upper right menu. 
 4. Submit "App Store URI" (for publised ppp) or "App Name" (for developing app).
